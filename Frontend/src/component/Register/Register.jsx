@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../redux/authSlice';
+import { registerUser } from '../../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
+import './Register.scss';
 
-const RegisterPage = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -24,13 +25,13 @@ const RegisterPage = () => {
     e.preventDefault();
     dispatch(registerUser(formData)).then((res) => {
       if (res.type === 'auth/registerUser/fulfilled') {
-        navigate('/profile');
+        // navigate('/profile');
       }
     });
   };
 
   return (
-    <div>
+    <div className='register__container'>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -63,9 +64,11 @@ const RegisterPage = () => {
         />
         <button type="submit">Register</button>
       </form>
-      {status === 'failed' && <p>Error: {error}</p>}
+      {status === 'failed' && error && (
+        <p>Error: {typeof error === 'string' ? error : JSON.stringify(error)}</p>
+      )}
     </div>
   );
 };
 
-export default RegisterPage;
+export default Register;

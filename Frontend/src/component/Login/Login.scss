@@ -1,0 +1,62 @@
+.login__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+
+    h1 {
+        font-size: 2.6rem;
+        color: rgb(36, 36, 36);
+
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.3rem;
+
+        input {
+            font-size: 1.1rem;
+            padding: 0.3rem 0;
+            border: none;
+            border-bottom: 2px solid rgb(209, 144, 144);
+            margin: 0%;
+            width: 300px;
+            // color: red;
+
+            &:focus {
+                border: none;
+                outline: none;
+                border-bottom: 2px solid rgb(144, 209, 181);
+
+            }
+        }
+
+        .buttons {
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 0; 
+            .submit {
+                padding: 0.5rem 2rem;
+                background-color: var(--accent-color);
+                color: white;
+                border: none;
+                border-radius: 3px;
+    
+            }
+            .forget{
+                padding: 0.5rem 2rem;
+                background-color: transparent;
+                color: var(--accent-color);
+                border: none;
+                border-radius: 3px;
+    
+            }
+        }
+        
+    }
+}

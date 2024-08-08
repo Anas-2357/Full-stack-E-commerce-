@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../redux/authSlice';
+import { loginUser } from '../../redux/authSlice';
 import { useNavigate } from 'react-router-dom';
+import './Login.scss'
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { status, error } = useSelector((state) => state.auth);
+  const { user, status, error } = useSelector((state) => state.auth);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,15 +22,15 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(formData)).then((res) => {
-      if (res.type === 'auth/loginUser/fulfilled') {
-        navigate('/profile');
-      }
+      // if (res.type === 'auth/loginUser/fulfilled') {
+      //   navigate('/profile');
+      // }
     });
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className='login__container'>
+      <h1>Log in</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -45,9 +46,21 @@ const LoginPage = () => {
           onChange={handleChange}
           placeholder="Password"
         />
-        <button type="submit">Login</button>
+        <div className="buttons">
+          <button type="submit" className='submit'>Log in</button>
+          <button className='forget'>Forget Password?</button>
+        </div>
       </form>
+      {status === 'loading' && <p>Loading...</p>}
       {status === 'failed' && <p>Error: {error}</p>}
+      {status === 'succeeded' && user && (
+        <div>
+          <h2>Welcome, {user.name}!</h2>
+          <p>Email: {user.email}</p>
+          <p>Gender: {user.gender}</p>
+          <p>Role: {user.role}</p>
+        </div>
+      )}
     </div>
   );
 };

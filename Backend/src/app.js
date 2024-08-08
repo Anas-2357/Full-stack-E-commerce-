@@ -26,6 +26,7 @@ app.use(cors({
   credentials: true
 }));
 
+
 // Root Route
 app.get('/', (req, res) => {
   res.send('Welcome to the E-commerce API!');
